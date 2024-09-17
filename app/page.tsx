@@ -1,101 +1,126 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import UserAccountButton from '@/components/UserAccountButton';
+
+type Product = {
+  id: number;
+  name: string;
+  description: string;
+  category: 'Savory' | 'Sweets' | 'Drinks';
+  price: number;
+  stock: number;
+  origin: string;
+  image: string;
+};
+
+type Notification = {
+  id: number;
+  status: 'Unread' | 'Read';
+};
+
+const UserDashboard = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [hasUnreadNotifications, setHasUnreadNotifications] = useState<boolean>(false);
+  const router = useRouter();
+
+  // Fetch all products
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch('/api/products');
+      const data = await response.json();
+      setProducts(Array.isArray(data) ? data : []);
+    };
+
+    fetchProducts();
+  }, []);
+
+  // Fetch notifications to check if there are any unread notifications
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      const response = await fetch('/api/notifications/unread');
+      const data: Notification[] = await response.json();
+      setHasUnreadNotifications(data.length > 0);
+    };
+
+    fetchNotifications();
+  }, []);
+
+  // Handle search
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value.toLowerCase());
+  };
+
+  // Filter products by search term
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm)
+  );
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div>
+      <h1>User Dashboard</h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      {/* Notifications Button */}
+      <button
+        style={{ backgroundColor: hasUnreadNotifications ? 'red' : 'blue', color: 'white' }}
+        onClick={() => router.push('/notification/new')}
+      >
+        Notifications
+      </button>
+
+      {/* Navigation Links */}
+      <div>
+        <Link href="/profile">Profile</Link>
+        <Link href="/cart">Cart</Link>
+        <Link href="/orders/history"> Order History</Link>
+        <UserAccountButton/>
+      </div>
+
+      {/* Category buttons */}
+      <div style={{ marginBottom: '20px' }}>
+        <button onClick={() => router.push('/savory')}>Savory</button>
+        <button onClick={() => router.push('/sweets')}>Sweets</button>
+        <button onClick={() => router.push('/drinks')}>Drinks</button>
+        <button onClick={() => router.push('/region')}>Region</button>
+      </div>
+
+      {/* Search bar */}
+      <div>
+        <input
+          type="text"
+          placeholder="Search product by title"
+          value={searchTerm}
+          onChange={handleSearch}
+          style={{ marginBottom: '20px', padding: '10px' }}
+        />
+      </div>
+
+      {/* Product list */}
+      <ul>
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <li
+              key={product.id}
+              style={{ border: '1px solid black', padding: '10px', marginBottom: '10px' }}
+              onClick={() => router.push(`/items/${product.id}`)}
+            >
+              <img src={product.image} alt="product" className='w-[40px]' />
+              <h3>{product.name}</h3>
+              <p>{product.description.length > 50 ? `${product.description.slice(0, 50)}...` : product.description}</p>
+              <p>Price: Rp {product.price}</p>
+              <p>Stock: {product.stock}</p>
+              <p>Region: {product.origin}</p>
+            </li>
+          ))
+        ) : (
+          <p>No products available</p>
+        )}
+      </ul>
     </div>
   );
-}
+};
+
+export default UserDashboard;

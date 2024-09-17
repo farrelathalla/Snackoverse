@@ -1,0 +1,129 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+  model User {
+    id             Int            @id @default(autoincrement())
+    email          String         @unique
+    password       String
+    phoneNumber    String
+    role           Roles          @default(Consumer)
+    addressId      Int?           @unique
+    address        Address?       @relation(name: "UserAddress", fields: [addressId], references: [id])
+    fullName       String
+    cart           Cart?          @relation("UserCart")
+    orders         Order[]        @relation("UserOrders")
+    notifications  Notification[] @relation("UserNotifications")
+  }
+
+  model Address {
+    id          Int     @id @default(autoincrement())
+    title       String
+    provinceId  String
+    provinceName String
+    type        String
+    postalCode  String
+    cityId      String
+    cityName    String
+    user        User?   @relation(name: "UserAddress")
+    userId      Int?    @unique  // Ensure this is unique for a one-to-one relationship
+  }
+
+model Notification {
+  id         Int         @id @default(autoincrement())
+  userId     Int?        
+  user       User?       @relation("UserNotifications", fields: [userId], references: [id])
+  orderId    Int?
+  order      Order?      @relation("OrderNotifications", fields: [orderId], references: [id], onDelete: Cascade)
+  message    String      
+  recipient  Roles       
+  status     NotifStatus @default(Unread)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum NotifStatus {
+  Unread
+  Read
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  category    Category
+  price       Float
+  image       String
+  stock       Int
+  origin      String
+  weight      Int
+  cartItems   CartItem[] @relation("ProductCartItems")
+  orderItems  OrderItem[] @relation("ProductOrderItems")
+}
+
+model Cart {
+  id        Int       @id @default(autoincrement())
+  userId    Int       @unique
+  user      User      @relation("UserCart", fields: [userId], references: [id], onDelete: Cascade)
+  cartItems CartItem[] @relation("CartCartItems")
+}
+
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  cartId    Int
+  cart      Cart     @relation("CartCartItems", fields: [cartId], references: [id], onDelete: Cascade)
+  productId Int
+  product   Product  @relation("ProductCartItems", fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  userId      Int
+  user        User        @relation("UserOrders", fields: [userId], references: [id], onDelete: Cascade)
+  totalAmount Float       
+  deliveryFee Float
+  status      OrderStatus @default(Pending)
+  orderItems  OrderItem[] @relation("OrderOrderItems")
+  notifications Notification[] @relation("OrderNotifications")
+  createdAt   DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  order     Order    @relation("OrderOrderItems", fields: [orderId], references: [id], onDelete: Cascade)
+  productId Int
+  product   Product  @relation("ProductOrderItems", fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int
+  price     Float
+}
+
+enum OrderStatus {
+  Pending
+  Paid
+  Shipped
+}
+
+enum Roles {
+  Consumer
+  Admin
+}
+
+enum Category {
+  Savory
+  Sweets
+  Drinks
+}
