@@ -170,9 +170,9 @@ const SignUpForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='w-full bg-[#292929] p-5 rounded-xl'>
-        <h3 className='text-center text-white font-semibold text-2xl'>Sign Up</h3>
-        <p className='text-[#A1A1A1] text-center'>Create your account!</p>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='w-full bg-gradient-to-b from-[#EBC601] to-[#CAAA00] p-5 rounded-tl-xl rounded-bl-xl'>
+        <h3 className='text-center text-black font-bold text-3xl'>Sign Up</h3>
+        <p className='text-gray-600 text-center'>Create your account!</p>
         <div className='space-y-2 mt-5'>
           {/* Full Name */}
           <FormField
@@ -180,9 +180,9 @@ const SignUpForm = () => {
             name='fullName'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-white font-semibold'>Full Name</FormLabel>
+                <FormLabel className='text-black font-semibold'>Full Name</FormLabel>
                 <FormControl>
-                  <Input className="bg-[#292929] border-[1px] border-[#A1A1A1] text-white" placeholder='Enter your full name' {...field} />
+                  <Input className="bg-white border-[1px] border-[#A1A1A1] text-black" placeholder='Enter your full name' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -195,9 +195,9 @@ const SignUpForm = () => {
             name='email'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-white font-semibold'>Email</FormLabel>
+                <FormLabel className='text-black font-semibold'>Email</FormLabel>
                 <FormControl>
-                  <Input className="bg-[#292929] border-[1px] border-[#A1A1A1] text-white" placeholder='mail@example.com' {...field} />
+                  <Input className="bg-white border-[1px] border-[#A1A1A1] text-black" placeholder='mail@example.com' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -210,10 +210,10 @@ const SignUpForm = () => {
             name='password'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-white font-semibold'>Password</FormLabel>
+                <FormLabel className='text-black font-semibold'>Password</FormLabel>
                 <FormControl>
                   <Input
-                    className="bg-[#292929] border-[1px] border-[#A1A1A1] text-white"
+                    className="bg-white border-[1px] border-[#A1A1A1] text-black"
                     type='password'
                     placeholder='Enter your password'
                     {...field}
@@ -230,10 +230,10 @@ const SignUpForm = () => {
             name='confirmPassword'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-white font-semibold'>Confirm Password</FormLabel>
+                <FormLabel className='text-black font-semibold'>Confirm Password</FormLabel>
                 <FormControl>
                   <Input
-                    className="bg-[#292929] border-[1px] border-[#A1A1A1] text-white"
+                    className="bg-white border-[1px] border-[#A1A1A1] text-black"
                     placeholder='Re-enter your password'
                     type='password'
                     {...field}
@@ -250,10 +250,10 @@ const SignUpForm = () => {
             name='phoneNumber'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-white font-semibold'>Phone Number</FormLabel>
+                <FormLabel className='text-black font-semibold'>Phone Number</FormLabel>
                 <FormControl>
                   <Input
-                    className="bg-[#292929] border-[1px] border-[#A1A1A1] text-white"
+                    className="bg-white border-[1px] border-[#A1A1A1] text-black"
                     placeholder='08xxxxxxxxxx'
                     type='tel'
                     {...field}
@@ -270,10 +270,10 @@ const SignUpForm = () => {
             name='addressTitle'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-white font-semibold'>Address Title</FormLabel>
+                <FormLabel className='text-black font-semibold'>Address Title</FormLabel>
                 <FormControl>
                   <Input
-                    className="bg-[#292929] border-[1px] border-[#A1A1A1] text-white"
+                    className="bg-white border-[1px] border-[#A1A1A1] text-black"
                     placeholder='Enter your address title'
                     {...field}
                   />
@@ -289,10 +289,10 @@ const SignUpForm = () => {
             name='provinceId'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-white font-semibold'>Province</FormLabel>
+                <FormLabel className='text-black font-semibold'>Province</FormLabel>
                 <FormControl>
                   <select
-                    className="bg-[#292929] border-[1px] border-[#A1A1A1] text-white w-full p-2 rounded"
+                    className="bg-white border-[1px] border-[#A1A1A1] text-black w-full p-2 rounded-lg"
                     {...field}
                     onChange={(e) => handleProvinceChange(e.target.value)}
                   >
@@ -315,10 +315,10 @@ const SignUpForm = () => {
             name='cityId'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-white font-semibold'>City</FormLabel>
+                <FormLabel className='text-black font-semibold'>City</FormLabel>
                 <FormControl>
                   <select
-                    className="bg-[#292929] border-[1px] border-[#A1A1A1] text-white w-full p-2 rounded"
+                    className="bg-white border-[1px] border-[#A1A1A1] text-black w-full p-2 rounded-lg"
                     {...field}
                     onChange={(e) => handleCityChange(e.target.value)}
                   >
@@ -338,10 +338,10 @@ const SignUpForm = () => {
           {/* Postal Code */}
           {postalCode && (
             <FormItem>
-              <FormLabel className='text-white font-semibold'>Postal Code</FormLabel>
+              <FormLabel className='text-black font-semibold'>Postal Code</FormLabel>
               <FormControl>
                 <Input
-                  className="bg-[#292929] border-[1px] border-[#A1A1A1] text-white"
+                  className="bg-white border-[1px] border-[#A1A1A1] text-black"
                   value={postalCode}
                   disabled // Postal code is displayed but not editable
                 />
@@ -351,17 +351,13 @@ const SignUpForm = () => {
           )}
         </div>
 
-        <Button className='w-full mt-6 rounded-lg bg-[#7879ED] font-semibold' type='submit'>
+        <Button className='w-full mt-6 rounded-lg bg-white font-semibold text-black hover:bg-gray-100' type='submit'>
           Sign up
         </Button>
 
-        <div className='mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-[#A1A1A1] after:ml-4 after:block after:h-px after:flex-grow after:bg-[#A1A1A1] text-[#A1A1A1]'>
-          or
-        </div>
-
-        <p className='text-center text-sm text-[#A1A1A1] mt-2'>
+        <p className='text-center text-sm text-gray-800 mt-2'>
           If you have an account, please&nbsp;
-          <Link className='text-[#7879ED] hover:underline ml-1' href='/sign-in'>
+          <Link className='text-teal-600 font-bold hover:underline ml-1' href='/sign-in'>
             Sign in
           </Link>
         </p>

@@ -65,57 +65,55 @@ const SignInForm = () => {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='w-full bg-[#292929] p-5 rounded-xl'>
-        <h3 className='text-center text-white font-semibold text-2xl'> Sign In </h3>
-        <p className='text-[#A1A1A1] text-center'> To study with us! </p>
-        <div className='space-y-2 mt-5'>
-          <FormField
-            control={form.control}
-            name='email'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className='text-white font-semibold'>Email address</FormLabel>
-                <FormControl className='text-white'>
-                  <Input className="bg-[#292929] border-[1px] border-[#A1A1A1]" placeholder='mail@example.com' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='password'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className='text-white font-semibold'>Password</FormLabel>
-                <FormControl>
-                  <Input
-                    className='bg-[#292929] border-[1px] border-[#A1A1A1] focus:outline-none text-white '
-                    type='password'
-                    placeholder='Enter your password'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <Button className='w-full mt-6 rounded-lg bg-[#7879ED] font-semibold' type='submit'>
-          Sign in
-        </Button>
-        <div className='mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-[#A1A1A1] after:ml-4 after:block after:h-px after:flex-grow after:bg-[#A1A1A1] text-[#A1A1A1]'>
-          or
-        </div>
-        <p className='text-center text-sm text-[#A1A1A1] mt-2'>
-          If you don&apos;t have an account, please&nbsp;
-          <Link className='text-[#7879ED] hover:underline ml-1' href='/sign-up'>
-            Sign up
-          </Link>
-        </p>
-      </form>
-    </Form>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='w-full h-max flex-col items-center justify-center p-8'>
+          <h3 className='text-center text-black font-bold text-3xl'> Sign In </h3>
+          <p className='text-gray-800 text-center'> To satisfy your sweet tooth! </p>
+          <div className='space-y-2 mt-5'>
+            <FormField
+              control={form.control}
+              name='email'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-black font-semibold'>Email address</FormLabel>
+                  <FormControl className='text-white'>
+                    <Input className="border-[1px] bg-white border-gray-600 focus:border-black focus:ring-0 text-black rounded-lg" placeholder='mail@example.com' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='password'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-black font-semibold'>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      className='border-[1px] bg-white border-gray-600 focus:outline-none text-black rounded-lg '
+                      type='password'
+                      placeholder='Enter your password'
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Button className='w-full mt-6 rounded-lg bg-white text-black font-semibold hover:bg-gray-100' type='submit'>
+            Sign in
+          </Button>
+          
+          <p className='text-center text-sm text-gray-800 mt-2'>
+            Don&apos;t have an account?
+            <Link className='text-teal-600 font-bold hover:underline ml-1' href='/sign-up'>
+              Register here
+            </Link>
+          </p>
+        </form>
+      </Form>
   );
 };
 
