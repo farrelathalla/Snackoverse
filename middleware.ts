@@ -11,7 +11,7 @@ export async function middleware(req: any) {
     pathname.startsWith('/static/') || // Static files
     pathname.startsWith('/public/') || // Public files
     pathname.startsWith('/api/') ||
-    pathname === '/favicon.ico' // API routes
+    pathname === '/Logo.ico' // API routes
   ) {
     return NextResponse.next();
   }

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
+import UserAccountButton from '@/components/UserAccountButton';
 
 type Province = { province_id: string; province: string };
 type City = { city_id: string; city_name: string; type: string; postal_code: string };
@@ -184,6 +185,7 @@ const ProfilePage = () => {
           </>
         )}
       </form>
+      <UserAccountButton/>
     </main>
   );
 };

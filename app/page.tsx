@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import UserAccountButton from '@/components/UserAccountButton';
+import Image from 'next/image';
 
 type Product = {
   id: number;
@@ -61,7 +62,7 @@ const UserDashboard = () => {
 
   return (
     <div>
-      <h1>User Dashboard</h1>
+      <h1 className=''>User Dashboard</h1>
 
       {/* Notifications Button */}
       <button
@@ -71,13 +72,6 @@ const UserDashboard = () => {
         Notifications
       </button>
 
-      {/* Navigation Links */}
-      <div>
-        <Link href="/profile">Profile</Link>
-        <Link href="/cart">Cart</Link>
-        <Link href="/orders/history"> Order History</Link>
-        <UserAccountButton/>
-      </div>
 
       {/* Category buttons */}
       <div style={{ marginBottom: '20px' }}>
@@ -97,7 +91,6 @@ const UserDashboard = () => {
           style={{ marginBottom: '20px', padding: '10px' }}
         />
       </div>
-
       {/* Product list */}
       <ul>
         {filteredProducts.length > 0 ? (
