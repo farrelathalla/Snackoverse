@@ -19,7 +19,7 @@ const Bricolage = localFont({
 
 // Metadata for the layout
 export const metadata: Metadata = {
-  title: "Snack O Verse",
+  title: "Snack O' Verse",
   description: "Snack Snack Snack!",
 };
 

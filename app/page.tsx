@@ -61,47 +61,62 @@ const UserDashboard = () => {
   );
 
   return (
-    <div>
-      <h1 className=''>User Dashboard</h1>
-
-      {/* Notifications Button */}
-      <button
-        style={{ backgroundColor: hasUnreadNotifications ? 'red' : 'blue', color: 'white' }}
-        onClick={() => router.push('/notification/new')}
-      >
-        Notifications
-      </button>
-
-
+    <div className='flex flex-col mx-auto justify-center items-center'>
+      <Image src="Title.svg" alt="Logo Header" height={20} width={20} className='w-screen h-screen'/>
+      
       {/* Category buttons */}
-      <div style={{ marginBottom: '20px' }}>
-        <button onClick={() => router.push('/savory')}>Savory</button>
-        <button onClick={() => router.push('/sweets')}>Sweets</button>
-        <button onClick={() => router.push('/drinks')}>Drinks</button>
-        <button onClick={() => router.push('/region')}>Region</button>
+      <div className='flex flex-row p-4'>
+        <button onClick={() => router.push('/region')}
+        className="w-[320px] h-[410px] rounded-3xl text-white overflow-hidden relative">
+          <Image src="Region.svg" alt="Region Component" objectFit='cover' layout='fill' className='absolute top-0 left-0'/>
+        </button>
+
+        <div className='flex flex-col px-4 '>
+          <button onClick={() => router.push('/drinks')}
+          className="bg-white w-[410px] h-[200px] rounded-3xl text-white overflow-hidden relative">
+            <Image src="Drinks.svg" alt="Drink Component" objectFit='cover' layout='fill' className='absolute top-0 left-0'/>
+          </button>
+          
+          <div className='flex flex-row pt-2 space-x-2'>
+
+            <button onClick={() => router.push('/sweets')}
+            className=" w-[200px] h-[200px] rounded-3xl text-white overflow-hidden relative px-4"> 
+              <Image src="Sweet.svg" alt="Sweet Component" objectFit='cover' layout='fill' className='absolute top-0 left-0'/>
+            </button>
+            <button onClick={() => router.push('/savory')}
+            className=" w-[200px] h-[200px] rounded-3xl text-white overflow-hidden relative"> 
+              <Image src="Savory.svg" alt="Savory Component" objectFit='cover' layout='fill' className='absolute top-0 left-0'/>  
+          </button>
+            
+          </div>
+          
+        </div>
       </div>
 
       {/* Search bar */}
-      <div>
+      <div className='flex flex-row items-center justify-center p-4 space-x-4 w-screen'>
+        <div className=''>
+          Or search what you want here
+        </div>
         <input
           type="text"
           placeholder="Search product by title"
           value={searchTerm}
           onChange={handleSearch}
-          style={{ marginBottom: '20px', padding: '10px' }}
+          className='p-2 border-[1px] rounded-xl w-[400px]'
         />
       </div>
       {/* Product list */}
-      <ul>
+      <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 w-full p-4 mx-auto'>
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <li
               key={product.id}
-              style={{ border: '1px solid black', padding: '10px', marginBottom: '10px' }}
+              className='border-[1px] p-4 rounded-xl flex flex-col items-center'
               onClick={() => router.push(`/items/${product.id}`)}
             >
-              <img src={product.image} alt="product" className='w-[40px]' />
-              <h3>{product.name}</h3>
+              <img src={product.image} alt="product" className='w-[80px] h-[80px] object-contain mb-2' />
+              <h3 className="font-semibold">{product.name}</h3>
               <p>{product.description.length > 50 ? `${product.description.slice(0, 50)}...` : product.description}</p>
               <p>Price: Rp {product.price}</p>
               <p>Stock: {product.stock}</p>
